@@ -1,0 +1,62 @@
+// Hotel API
+
+GET {{url}}/hotels
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/hotels/2
+Authorization: Bearer {{token}}
+
+###
+
+POST {{url}}/hotels
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "hotelName": "Radisson",
+  "hotelAddress": "Sindelfingen",
+  "hotelType": "BUDGET"
+}
+
+###
+
+PUT {{url}}/hotels/200
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "hotelName": "Scandic",
+  "hotelAddress": "Lyngby Hovedgade",
+  "hotelType": "BUDGET"
+}
+
+###
+
+DELETE {{url}}/hotels/54
+Authorization: Bearer {{token}}
+
+###
+
+// Room API
+
+GET {{url}}/rooms
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/rooms/100
+Authorization: Bearer {{token}}
+
+###
+
+POST {{url}}/rooms/hotel/2
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "roomNumber": 112,
+  "roomPrice": 1150,
+  "roomType": "SINGLE"
+}
