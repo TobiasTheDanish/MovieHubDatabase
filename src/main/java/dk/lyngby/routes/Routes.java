@@ -1,6 +1,7 @@
 package dk.lyngby.routes;
 
 import dk.lyngby.controller.impl.ExceptionController;
+import dk.lyngby.controller.impl.MovieController;
 import dk.lyngby.exception.ApiException;
 import dk.lyngby.exception.AuthorizationException;
 import io.javalin.Javalin;
@@ -19,6 +20,7 @@ public class Routes {
     private int count = 0;
 
     private final UserRoutes userRoutes = new UserRoutes();
+    private final MovieRoutes movieRoutes = new MovieRoutes();
 
     private final Logger LOGGER = LoggerFactory.getLogger(Routes.class);
 
@@ -33,6 +35,7 @@ public class Routes {
 
             app.routes(() -> {
                 path("/", userRoutes.getRoutes());
+                path("/", movieRoutes.getRoutes());
             });
 
             app.after(ctx -> LOGGER.info(" Request {} - {} was handled with status code {}", count++, ctx.attribute("requestInfo"), ctx.status()));
