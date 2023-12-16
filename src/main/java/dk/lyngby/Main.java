@@ -7,9 +7,10 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        String port = (System.getenv("DEPLOYED") != null) ? System.getenv("PORT") : ApplicationConfig.getProperty("javalin.port");
         ApplicationConfig
             .startServer(
                 Javalin.create(),
-                Integer.parseInt(ApplicationConfig.getProperty("javalin.port")));
+                Integer.parseInt(port));
     }
 }

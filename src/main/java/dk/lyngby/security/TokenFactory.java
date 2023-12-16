@@ -45,10 +45,17 @@ public class TokenFactory {
     // Get properties from pom file
     private String[] getProperties() {
         try {
+            boolean isDeployed = System.getenv("DEPLOYED") != null;
             String[] properties = new String[3];
-            properties[0] = ApplicationConfig.getProperty("issuer");
-            properties[1] = ApplicationConfig.getProperty("token.expiration.time");
-            properties[2] = ApplicationConfig.getProperty("secret.key");
+            if (isDeployed) {
+                properties[0] = System.getenv("ISSUER");
+                properties[1] = System.getenv("TOKEN_EXPIRATION_TIME");
+                properties[2] = System.getenv("SECRET_KEY");
+            } else {
+                properties[0] = ApplicationConfig.getProperty("issuer");
+                properties[1] = ApplicationConfig.getProperty("token.expiration.time");
+                properties[2] = ApplicationConfig.getProperty("secret.key");
+            }
             return properties;
         } catch (IOException e) {
             LOGGER.error("Could not get properties", e);
