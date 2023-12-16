@@ -14,8 +14,8 @@ public class MovieRoutes {
         return () -> {
             path("/movies", () -> {
                 get("/", controller::fetchAllMovies, RouteRoles.USER, RouteRoles.ADMIN, RouteRoles.MANAGER);
-                get("/search", controller::fetchMovieSearch, RouteRoles.ANYONE, RouteRoles.USER, RouteRoles.ADMIN, RouteRoles.MANAGER);
-                get("{id}", controller::fetchMovieById, RouteRoles.ANYONE, RouteRoles.USER, RouteRoles.ADMIN, RouteRoles.MANAGER);
+                get("/search", controller::fetchMovieSearch, RouteRoles.USER, RouteRoles.ADMIN, RouteRoles.MANAGER);
+                get("{id}", controller::fetchMovieById, RouteRoles.USER, RouteRoles.ADMIN, RouteRoles.MANAGER);
             });
         };
     }
