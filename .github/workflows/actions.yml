@@ -1,4 +1,4 @@
-name: GITHUB ACTIONS WORKFLOW DEMO
+name: Create/Update docker image
 on:
   push:
     branches: [ master ]
