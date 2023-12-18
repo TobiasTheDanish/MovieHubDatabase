@@ -14,8 +14,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class MovieController {
-    Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
-    boolean isDeployed = (System.getenv("DEPLOYED") != null);
+    private final Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
+    private final boolean isDeployed = (System.getenv("DEPLOYED") != null);
     private final String TMDB_API_KEY;
     private final String TMDB_BASE_URL = "https://api.themoviedb.org/3/";
 
@@ -125,5 +125,4 @@ public class MovieController {
 
         return sb.toString();
     }
-
 }
