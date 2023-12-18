@@ -93,6 +93,26 @@ public class MovieController {
         }
     }
 
+    public void fetchMovieImages(Context ctx) throws ApiException {
+        try {
+            HttpClient client = HttpClient.newBuilder().build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(TMDB_BASE_URL + "configuration"))
+                    .header("accept", "application/json")
+                    .header("Authorization", "Bearer " + TMDB_API_KEY)
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            LOGGER.info("Response: " + response.body());
+            ctx.status(response.statusCode());
+            ctx.json(response.body());
+        } catch (URISyntaxException e) {
+            throw new ApiException(500, "Could not create URI");
+        } catch (IOException | InterruptedException e) {
+            throw new ApiException(500, "Failed to send request. Error message: " + e.getMessage());
+        }
+    }
     public String urlEncode(String str) {
         if (str == null) return "";
 
@@ -105,4 +125,5 @@ public class MovieController {
 
         return sb.toString();
     }
+
 }
