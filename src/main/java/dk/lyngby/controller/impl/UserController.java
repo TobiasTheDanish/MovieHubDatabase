@@ -6,6 +6,7 @@ import dk.lyngby.config.HibernateConfig;
 import dk.lyngby.dao.impl.UserDao;
 import dk.lyngby.exception.ApiException;
 import dk.lyngby.exception.AuthorizationException;
+import dk.lyngby.exception.Message;
 import dk.lyngby.model.User;
 import dk.lyngby.security.TokenFactory;
 import io.javalin.http.Context;
@@ -41,6 +42,21 @@ public class UserController {
         // Create response
         ctx.res().setStatus(201);
         ctx.result(createResponse(userInfos[0], token));
+    }
+
+    public void validateToken(Context ctx) throws ApiException {
+        try {
+            String token = ctx.header("Authorization").split(" ")[1];
+
+            if (!tokenFactory.validateToken(token)) {
+                throw new ApiException(401, "Token is not valid.");
+            }
+
+            ctx.status(200);
+            ctx.json(new Message(200, "Token is valid"));
+        } catch (NullPointerException e) {
+            throw new ApiException(401, "No token provided.");
+        }
     }
 
     private String createResponse(String username, String token) {
