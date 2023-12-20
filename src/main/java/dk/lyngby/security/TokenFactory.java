@@ -112,4 +112,12 @@ public class TokenFactory {
             throw new ApiException(401, e.getMessage());
         }
     }
+
+    public boolean validateToken(String token) {
+        try {
+            return signature.verifyToken(token);
+        } catch (ParseException | JOSEException e) {
+            return false;
+        }
+    }
 }

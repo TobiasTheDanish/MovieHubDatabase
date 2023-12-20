@@ -62,6 +62,17 @@ public class SignVerifyToken {
         return signedJWT;
     }
 
+    public boolean verifyToken(String token) throws JOSEException, ParseException {
+        SignedJWT signedJWT = SignedJWT.parse(token);
+        JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
+
+        if(!signedJWT.verify(verifier)) {
+            return false;
+        }
+
+        return new Date().before(signedJWT.getJWTClaimsSet().getExpirationTime());
+    }
+
     public UserDTO getJWTClaimsSet(JWTClaimsSet claimsSet) throws AuthorizationException {
 
         if (new Date().after(claimsSet.getExpirationTime()))

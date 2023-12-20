@@ -17,6 +17,7 @@ public class UserRoutes {
             path("/auth", () -> {
                 post("/login", userController::login, RouteRoles.ANYONE);
                 post("/register", userController::register, RouteRoles.ANYONE);
+                get("/validate", userController::validateToken, RouteRoles.ANYONE);
             });
             path("user", () -> {
                 get("ratings", ratingController::getAllRatingsForUser, RouteRoles.MANAGER, RouteRoles.ADMIN, RouteRoles.USER);
