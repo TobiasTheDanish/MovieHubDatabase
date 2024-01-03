@@ -29,10 +29,11 @@ public class MovieController {
     }
 
     public void fetchAllMovies(Context ctx) throws ApiException {
+        String page = ctx.pathParam("page");
         try {
             HttpClient client = HttpClient.newBuilder().build();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(TMDB_BASE_URL + "discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"))
+                    .uri(new URI(TMDB_BASE_URL + "discover/movie?include_adult=false&include_video=false&language=en-US&page=" + page + "&sort_by=popularity.desc"))
                     .header("accept", "application/json")
                     .header("Authorization", "Bearer " + TMDB_API_KEY)
                     .GET()
